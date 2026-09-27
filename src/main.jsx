@@ -81,15 +81,41 @@ function Orb() {
   });
 
   return (
-    <mesh ref={r}>
-      <icosahedronGeometry args={[1.65, 5]} />
-      <meshStandardMaterial
-        color="#8b5cf6"
-        roughness={0.2}
-        metalness={0.75}
-        wireframe={false}
-      />
-    </mesh>
+    <group ref={r}>
+
+      {/* Soft outer glow */}
+      <mesh scale={1.12}>
+        <icosahedronGeometry args={[1.65, 5]} />
+        <meshBasicMaterial
+          color="#8b5cf6"
+          transparent
+          opacity={0.08}
+        />
+      </mesh>
+
+      {/* Main orb */}
+      <mesh>
+        <icosahedronGeometry args={[1.65, 5]} />
+        <meshStandardMaterial
+          color="#8b5cf6"
+          roughness={0.18}
+          metalness={0.8}
+          emissive="#4c1d95"
+          emissiveIntensity={0.35}
+        />
+      </mesh>
+
+      {/* Subtle inner highlight */}
+      <mesh scale={0.92}>
+        <icosahedronGeometry args={[1.65, 5]} />
+        <meshBasicMaterial
+          color="#c4b5fd"
+          transparent
+          opacity={0.035}
+        />
+      </mesh>
+
+    </group>
   );
 }
 
@@ -120,7 +146,11 @@ function OrbitParticles() {
             ]}
           >
             <sphereGeometry
-              args={[0.035 + (i % 3) * 0.008, 8, 8]}
+              args={[
+                0.035 + (i % 3) * 0.008,
+                8,
+                8
+              ]}
             />
             <meshBasicMaterial color="#c4b5fd" />
           </mesh>
@@ -179,6 +209,7 @@ function App() {
         <section className="hero">
 
           <div className="heroText">
+
             <p className="eyebrow">
               IT TECHNICIAN · WEB DEVELOPER · AI BUILDER
             </p>
@@ -195,6 +226,7 @@ function App() {
             </p>
 
             <div className="actions">
+
               <a className="primary" href="#work">
                 Explore my work <ArrowUpRight size={17} />
               </a>
@@ -207,10 +239,13 @@ function App() {
               >
                 GitHub <Github size={17} />
               </a>
+
             </div>
+
           </div>
 
           <div className="orb">
+
             <Canvas camera={{ position: [0, 0, 5] }}>
 
               <ambientLight intensity={0.45} />
@@ -239,18 +274,20 @@ function App() {
               {/* Main rotating orb */}
               <Orb />
 
-              {/* Small particles orbiting the orb */}
+              {/* Orbiting particles */}
               <OrbitParticles />
 
-              {/* Mouse interaction */}
+              {/* Mouse controls */}
               <OrbitControls enableZoom={false} />
 
             </Canvas>
+
           </div>
 
         </section>
 
         <section className="stats">
+
           <div>
             <b>19+</b>
             <span>YEARS TECH</span>
@@ -270,6 +307,7 @@ function App() {
             <b>REMOTE</b>
             <span>READY</span>
           </div>
+
         </section>
 
         <section id="about" className="section">
@@ -359,6 +397,7 @@ function App() {
           <div className="two">
 
             <div>
+
               <h2>
                 Color Mix
                 <br />
@@ -369,6 +408,7 @@ function App() {
                 Choose two colors. The prototype returns a structured
                 result and a reusable AI-video prompt.
               </p>
+
             </div>
 
             <div className="panel">
