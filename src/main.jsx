@@ -72,19 +72,25 @@ const mix = {
 
 function Orb() {
   const r = React.useRef();
+  const glow = React.useRef();
 
   useFrame((s, d) => {
     if (r.current) {
       r.current.rotation.x += d * 0.18;
       r.current.rotation.y += d * 0.28;
     }
+
+    if (glow.current) {
+      glow.current.material.opacity =
+        0.055 + Math.sin(s.clock.elapsedTime * 1.2) * 0.025;
+    }
   });
 
   return (
     <group ref={r}>
 
-      {/* Soft outer glow */}
-      <mesh scale={1.12}>
+      {/* Soft breathing outer glow */}
+      <mesh ref={glow} scale={1.12}>
         <icosahedronGeometry args={[1.65, 5]} />
         <meshBasicMaterial
           color="#8b5cf6"
